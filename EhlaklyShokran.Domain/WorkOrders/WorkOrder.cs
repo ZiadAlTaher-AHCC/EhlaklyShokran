@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EhlaklyShokran.Domain.Customers;
 
 namespace EhlaklyShokran.Domain.WorkOrders
 {
@@ -20,9 +21,11 @@ namespace EhlaklyShokran.Domain.WorkOrders
         public DateTimeOffset StartAtUtc { get; private set; }
         public DateTimeOffset EndAtUtc { get; private set; }
         public Guid LaborId { get; private set; }
+        public Guid CustomerId { get; private set; }
         public Spot Spot { get; private set; }
         public WorkOrderState State { get; private set; }
         public Employee? Labor { get; set; }
+        public Customer? Customer { get; set; }
         public Invoice? Invoice { get; set; }
         public decimal? Discount { get; private set; }
         public decimal? Tax { get; private set; }

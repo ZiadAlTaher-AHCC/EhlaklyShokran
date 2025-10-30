@@ -1,4 +1,4 @@
-﻿using EhlaklyShokran.Domain.BarberServices;
+﻿using EhlaklyShokran.Domain.BarberTasks;
 using EhlaklyShokran.Domain.Common;
 using EhlaklyShokran.Domain.Common.Results;
 using EhlaklyShokran.Domain.Workorders;
@@ -26,17 +26,17 @@ namespace EhlaklyShokran.Domain.WorkOrders
         public Invoice? Invoice { get; set; }
         public decimal? Discount { get; private set; }
         public decimal? Tax { get; private set; }
-        public decimal? TotalPartsCost => _barberService.SelectMany(rt => rt.Cosmetics).Sum(p => p.Cost);
-        public decimal? TotalLaborCost => _barberService.Sum(rt => rt.LaborCost);
+        public decimal? TotalPartsCost => _BarberTask.SelectMany(rt => rt.Cosmetics).Sum(p => p.Cost);
+        public decimal? TotalLaborCost => _BarberTask.Sum(rt => rt.LaborCost);
         public decimal? Total => (TotalPartsCost ?? 0) + (TotalLaborCost ?? 0);
 
-        private readonly List<BarberService> _barberService = [];
-        public IEnumerable<BarberService> BarberServices => _barberService.AsReadOnly();
+        private readonly List<BarberTask> _BarberTask = [];
+        public IEnumerable<BarberTask> BarberTasks => _BarberTask.AsReadOnly();
 
         private WorkOrder()
         { }
 
-        private WorkOrder(Guid id, Guid vehicleId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, WorkOrderState state, List<BarberService> barberServices)
+        private WorkOrder(Guid id, Guid vehicleId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, WorkOrderState state, List<BarberTask> BarberTasks)
             : base(id)
         {
             VehicleId = vehicleId;
@@ -45,10 +45,10 @@ namespace EhlaklyShokran.Domain.WorkOrders
             LaborId = laborId;
             Spot = spot;
             State = state;
-            _barberService = barberServices;
+            _BarberTask = BarberTasks;
         }
 
-        public static Result<WorkOrder> Create(Guid id, Guid vehicleId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, List<BarberService> barberServices)
+        public static Result<WorkOrder> Create(Guid id, Guid vehicleId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, List<BarberTask> BarberTasks)
         {
             if (id == Guid.Empty)
             {
@@ -60,9 +60,9 @@ namespace EhlaklyShokran.Domain.WorkOrders
                 return WorkOrderErrors.VehicleIdRequired;
             }
 
-            if (barberServices == null || barberServices.Count == 0)
+            if (BarberTasks == null || BarberTasks.Count == 0)
             {
-                return WorkOrderErrors.BarberServicesRequired;
+                return WorkOrderErrors.BarberTasksRequired;
             }
 
             if (laborId == Guid.Empty)
@@ -80,22 +80,22 @@ namespace EhlaklyShokran.Domain.WorkOrders
                 return WorkOrderErrors.SpotInvalid;
             }
 
-            return new WorkOrder(id, vehicleId, startAt, endAt, laborId, spot, WorkOrderState.Scheduled, barberServices);
+            return new WorkOrder(id, vehicleId, startAt, endAt, laborId, spot, WorkOrderState.Scheduled, BarberTasks);
         }
 
-        public Result<Updated> AddBarberService(BarberService barberService)
+        public Result<Updated> AddBarberTask(BarberTask BarberTask)
         {
             if (!IsEditable)
             {
                 return WorkOrderErrors.Readonly;
             }
 
-            if (_barberService.Any(r => r.Id == barberService.Id))
+            if (_BarberTask.Any(r => r.Id == BarberTask.Id))
             {
-                return WorkOrderErrors.BarberServiceAlreadyAdded;
+                return WorkOrderErrors.BarberTaskAlreadyAdded;
             }
 
-            _barberService.Add(barberService);
+            _BarberTask.Add(BarberTask);
 
             return Result.Updated;
         }
@@ -171,14 +171,14 @@ namespace EhlaklyShokran.Domain.WorkOrders
             return Result.Updated;
         }
 
-        public Result<Updated> ClearBarberServices()
+        public Result<Updated> ClearBarberTasks()
         {
             if (!IsEditable)
             {
                 return WorkOrderErrors.Readonly;
             }
 
-            _barberService.Clear();
+            _BarberTask.Clear();
 
             return Result.Updated;
         }

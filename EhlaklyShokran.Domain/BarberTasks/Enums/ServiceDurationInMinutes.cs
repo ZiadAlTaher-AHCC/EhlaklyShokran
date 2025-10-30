@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EhlaklyShokran.Domain.BarberServices.Enums
+namespace EhlaklyShokran.Domain.BarberTasks.Enums
 {
     public enum ServiceDurationInMinutes
     {

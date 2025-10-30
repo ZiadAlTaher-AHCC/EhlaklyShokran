@@ -1,5 +1,5 @@
-﻿using EhlaklyShokran.Domain.BarberServices.Cosmetics;
-using EhlaklyShokran.Domain.BarberServices.Enums;
+﻿using EhlaklyShokran.Domain.BarberTasks.Cosmetics;
+using EhlaklyShokran.Domain.BarberTasks.Enums;
 using EhlaklyShokran.Domain.Common;
 using EhlaklyShokran.Domain.Common.Results;
 using System;
@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EhlaklyShokran.Domain.BarberServices
+namespace EhlaklyShokran.Domain.BarberTasks
 {
 
-    public sealed class BarberService : AuditableEntity
+    public sealed class BarberTask : AuditableEntity
     {
         public string Name { get; private set; }
         public decimal LaborCost { get; private set; }
@@ -23,12 +23,12 @@ namespace EhlaklyShokran.Domain.BarberServices
 
 #pragma warning disable CS8618
 
-        private BarberService()
+        private BarberTask()
         { }
 
 #pragma warning restore CS8618
 
-        private BarberService(Guid id, string name, decimal laborCost, ServiceDurationInMinutes estimatedDurationInMins, List<Cosmetic> Cosmetics)
+        private BarberTask(Guid id, string name, decimal laborCost, ServiceDurationInMinutes estimatedDurationInMins, List<Cosmetic> Cosmetics)
             : base(id)
         {
             Name = name;
@@ -37,24 +37,24 @@ namespace EhlaklyShokran.Domain.BarberServices
             _Cosmetics = Cosmetics;
         }
 
-        public static Result<BarberService> Create(Guid id, string name, decimal laborCost, ServiceDurationInMinutes estimatedDurationInMins, List<Cosmetic> Cosmetics)
+        public static Result<BarberTask> Create(Guid id, string name, decimal laborCost, ServiceDurationInMinutes estimatedDurationInMins, List<Cosmetic> Cosmetics)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return BarberServiceErrors.NameRequired;
+                return BarberTaskErrors.NameRequired;
             }
 
             if (laborCost <= 0)
             {
-                return BarberServiceErrors.LaborCostInvalid;
+                return BarberTaskErrors.LaborCostInvalid;
             }
 
             if (!Enum.IsDefined(estimatedDurationInMins))
             {
-                return BarberServiceErrors.DurationInvalid;
+                return BarberTaskErrors.DurationInvalid;
             }
 
-            return new BarberService(id, name.Trim(), laborCost, estimatedDurationInMins, Cosmetics);
+            return new BarberTask(id, name.Trim(), laborCost, estimatedDurationInMins, Cosmetics);
         }
 
         public Result<Updated> UpsertCosmetics(List<Cosmetic> incomingCosmetics)
@@ -85,17 +85,17 @@ namespace EhlaklyShokran.Domain.BarberServices
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return BarberServiceErrors.NameRequired;
+                return BarberTaskErrors.NameRequired;
             }
 
             if (laborCost <= 0 || laborCost > 10000)
             {
-                return BarberServiceErrors.LaborCostInvalid;
+                return BarberTaskErrors.LaborCostInvalid;
             }
 
             if (!Enum.IsDefined(estimatedDurationInMins))
             {
-                return BarberServiceErrors.DurationInvalid;
+                return BarberTaskErrors.DurationInvalid;
             }
 
             Name = name.Trim();

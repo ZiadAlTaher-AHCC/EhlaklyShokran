@@ -10,4 +10,19 @@
     <ProjectReference Include="..\EhlaklyShokran.Domain\EhlaklyShokran.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Behaviours\" />
+    <Folder Include="Common\Errors\" />
+    <Folder Include="Common\Interfaces\" />
+    <Folder Include="Common\Models\" />
+    <Folder Include="Common\" />
+    <Folder Include="Features\Billing\" />
+    <Folder Include="Features\Customers\" />
+    <Folder Include="Features\Dashboard\" />
+    <Folder Include="Features\Identity\" />
+    <Folder Include="Features\Labors\" />
+    <Folder Include="Features\WorkOrders\" />
+    <Folder Include="Features\Scheduling\" />
+  </ItemGroup>
+
 </Project>

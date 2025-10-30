@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EhlaklyShokran.Domain.BarberServices.Cosmetics
+namespace EhlaklyShokran.Domain.BarberTasks.Cosmetics
 {
     public sealed class Cosmetic : AuditableEntity
     {

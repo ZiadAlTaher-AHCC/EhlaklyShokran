@@ -15,9 +15,6 @@
     <Folder Include="Features\BarberTasks\Mappers\" />
     <Folder Include="Features\BarberTasks\Queries\" />
     <Folder Include="Features\Billing\Queries\" />
-    <Folder Include="Features\Customers\Commands\" />
-    <Folder Include="Features\Customers\Mappers\" />
-    <Folder Include="Features\Customers\Queries\" />
     <Folder Include="Features\Dashboard\Commands\" />
     <Folder Include="Features\Dashboard\Mappers\" />
     <Folder Include="Features\Dashboard\Queries\" />

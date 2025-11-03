@@ -1,15 +1,11 @@
 ﻿using EhlaklyShokran.Application.Common.Interfaces;
+using EhlaklyShokran.Application.Features.Labors.Mappers;
 using EhlaklyShokran.Application.Features.Scheduling.Dtos;
 using EhlaklyShokran.Domain.Common.Results;
 using EhlaklyShokran.Domain.Workorders.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using EhlaklyShokran.Application.Features.BarberTasks.Mappers;
 
 namespace EhlaklyShokran.Application.Features.Scheduling.Queries.GetDailyScheduleQuery
 {
@@ -79,7 +75,7 @@ namespace EhlaklyShokran.Application.Features.Scheduling.Queries.GetDailySchedul
                                 EndAt = wo.EndAtUtc,
                                 Labor = wo.Labor!.ToDto(),
                                 IsOccupied = true,
-                                RepairTasks = [.. wo.BarberTasks.ToList().ConvertAll(rt => rt.ToDto())],
+                                BarberTasks = [.. wo.BarberTasks.ToList().ConvertAll(rt => rt.ToDto())],
                                 WorkOrderLocked = !wo.IsEditable,
                                 State = wo.State,
                                 IsAvailable = false

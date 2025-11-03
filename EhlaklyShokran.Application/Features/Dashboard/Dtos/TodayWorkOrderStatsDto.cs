@@ -17,13 +17,12 @@ namespace EhlaklyShokran.Application.Features.Dashboard.Dtos
         public decimal TotalRevenue { get; init; }
         public decimal TotalPartsCost { get; init; }
         public decimal TotalLaborCost { get; init; }
-        public int UniqueVehicles { get; init; }
         public int UniqueCustomers { get; init; }
         public decimal NetProfit { get; init; }
         public decimal ProfitMargin { get; init; }
         public decimal CompletionRate { get; init; }
         public decimal AverageRevenuePerOrder { get; init; }
-        public decimal OrdersPerVehicle { get; init; }
+        public decimal OrdersPerCustomer { get; init; }
         public decimal PartsCostRatio { get; init; }
         public decimal LaborCostRatio { get; init; }
         public decimal CancellationRate { get; init; }

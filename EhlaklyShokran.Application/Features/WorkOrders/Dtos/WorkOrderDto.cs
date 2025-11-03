@@ -1,4 +1,5 @@
 ﻿using EhlaklyShokran.Application.Features.BarberTasks.Dtos;
+using EhlaklyShokran.Application.Features.Customers.Dtos;
 using EhlaklyShokran.Application.Features.Labors.Dtos;
 using EhlaklyShokran.Domain.Workorders.Enums;
 using System;
@@ -16,8 +17,9 @@ namespace EhlaklyShokran.Application.Features.WorkOrders.Dtos
         public Spot Spot { get; set; }
         public DateTimeOffset StartAtUtc { get; set; }
         public DateTimeOffset EndAtUtc { get; set; }
-        public List<RepairTaskDto> RepairTasks { get; set; } = [];
+        public List<BarberTaskDto> BarberTasks { get; set; } = [];
         public LaborDto? Labor { get; set; }
+        public CustomerDto? Customer { get; set; }
         public WorkOrderState State { get; set; }
         public decimal TotalPartCost { get; set; }
         public decimal TotalLaborCost { get; set; }

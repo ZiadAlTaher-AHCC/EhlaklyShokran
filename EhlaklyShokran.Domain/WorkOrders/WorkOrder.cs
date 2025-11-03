@@ -17,7 +17,6 @@ namespace EhlaklyShokran.Domain.WorkOrders
 
     public sealed class WorkOrder : AuditableEntity
     {
-        public Guid VehicleId { get; }
         public DateTimeOffset StartAtUtc { get; private set; }
         public DateTimeOffset EndAtUtc { get; private set; }
         public Guid LaborId { get; private set; }
@@ -39,28 +38,28 @@ namespace EhlaklyShokran.Domain.WorkOrders
         private WorkOrder()
         { }
 
-        private WorkOrder(Guid id, Guid vehicleId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, WorkOrderState state, List<BarberTask> BarberTasks)
+        private WorkOrder(Guid id, Guid customerId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, WorkOrderState state, List<BarberTask> BarberTasks)
             : base(id)
         {
-            VehicleId = vehicleId;
             StartAtUtc = startAt;
             EndAtUtc = endAt;
             LaborId = laborId;
             Spot = spot;
             State = state;
+            CustomerId = customerId;
             _BarberTask = BarberTasks;
         }
 
-        public static Result<WorkOrder> Create(Guid id, Guid vehicleId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, List<BarberTask> BarberTasks)
+        public static Result<WorkOrder> Create(Guid id, Guid customerId, DateTimeOffset startAt, DateTimeOffset endAt, Guid laborId, Spot spot, List<BarberTask> BarberTasks)
         {
             if (id == Guid.Empty)
             {
                 return WorkOrderErrors.WorkOrderIdRequired;
             }
 
-            if (vehicleId == Guid.Empty)
+            if (customerId == Guid.Empty)
             {
-                return WorkOrderErrors.VehicleIdRequired;
+                return WorkOrderErrors.CustomerIdRequired;
             }
 
             if (BarberTasks == null || BarberTasks.Count == 0)
@@ -83,7 +82,7 @@ namespace EhlaklyShokran.Domain.WorkOrders
                 return WorkOrderErrors.SpotInvalid;
             }
 
-            return new WorkOrder(id, vehicleId, startAt, endAt, laborId, spot, WorkOrderState.Scheduled, BarberTasks);
+            return new WorkOrder(id, customerId, startAt, endAt, laborId, spot, WorkOrderState.Scheduled, BarberTasks);
         }
 
         public Result<Updated> AddBarberTask(BarberTask BarberTask)

@@ -28,20 +28,16 @@ namespace EhlaklyShokran.Application.Common.Errors
                "ApplicationErrors.Customer.NotFound",
                "Customer does not exist.");
 
-        public static Error VehicleNotFound =>
-        Error.NotFound(
-               "ApplicationErrors.Vehicle.NotFound",
-               "Vehicle does not exist.");
 
-        public static Error VehicleSchedulingConflict =>
+        public static Error CustomerSchedulingConflict =>
         Error.Conflict(
-                "Vehicle_Overlapping_WorkOrder",
-                "The vehicle already has an overlapping WorkOrder.");
+                "Customer_Overlapping_WorkOrder",
+                "The Customer already has an overlapping WorkOrder.");
 
-        public static Error RepairTaskNotFound =>
+        public static Error BarberTaskNotFound =>
         Error.NotFound(
-                "RepairTask.NotFound",
-                "Repair task does not exist.");
+                "BarberTask.NotFound",
+                "Barber task does not exist.");
 
         public static Error WorkOrderMustBeCompletedForInvoicing =>
         Error.Conflict(

@@ -36,9 +36,9 @@ public class RemoveCustomerCommandHandler(
             return ApplicationErrors.CustomerNotFound;
         }
 
-        var hasAssociatedWorkOrders = await _context.WorkOrders.Include(w => w.Vehicle)
-        .Where(wo => wo.Vehicle != null)
-        .AnyAsync(wo => wo.Vehicle!.CustomerId == command.CustomerId, ct);
+        var hasAssociatedWorkOrders = await _context.WorkOrders.Include(w => w.Customer)
+        .Where(wo => wo.Customer != null)
+        .AnyAsync(wo => wo.Customer!.Id == command.CustomerId, ct);
 
         if (hasAssociatedWorkOrders)
         {

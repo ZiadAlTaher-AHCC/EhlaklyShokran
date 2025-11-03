@@ -9,13 +9,13 @@ public static class WorkOrderErrors
         code: "WorkOrderErrors.WorkOrderIdRequired",
         description: "WorkOrder Id is required");
 
-    public static Error VehicleIdRequired => Error.Validation(
-        code: "WorkOrderErrors.VehicleIdRequired",
-        description: "Vehicle Id is required");
+    public static Error CustomerIdRequired => Error.Validation(
+        code: "WorkOrderErrors.CustomerIdRequired",
+        description: "Customer Id is required");
 
     public static Error BarberTasksRequired => Error.Validation(
         code: "WorkOrderErrors.BarberTasksRequired",
-        description: "At least one repair task is required");
+        description: "At least one Barber task is required");
 
     public static Error LaborIdRequired => Error.Validation(
         code: "WorkOrderErrors.LaborIdRequired",
@@ -51,7 +51,7 @@ public static class WorkOrderErrors
 
     public static Error BarberTaskAlreadyAdded => Error.Conflict(
         code: "WorkOrderErrors.BarberTaskAlreadyAdded",
-        description: "Repair task already exists.");
+        description: "Barber task already exists.");
 
     public static Error InvalidStateTransitionTime => Error.Conflict(
         code: "WorkOrderErrors.InvalidStateTransitionTime",

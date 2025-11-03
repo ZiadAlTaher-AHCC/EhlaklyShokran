@@ -20,6 +20,6 @@ namespace EhlaklyShokran.Application.Features.Scheduling.Dtos
         public bool? IsAvailable { get; set; }
         public bool WorkOrderLocked { get; set; }
         public WorkOrderState? State { get; set; }
-        public RepairTaskDto[]? RepairTasks { get; set; }
+        public BarberTaskDto[]? BarberTasks { get; set; }
     }
 }

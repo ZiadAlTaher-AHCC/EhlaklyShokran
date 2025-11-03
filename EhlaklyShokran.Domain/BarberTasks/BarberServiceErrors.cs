@@ -19,22 +19,22 @@ namespace EhlaklyShokran.Domain.BarberTasks
         public static Error DurationInvalid =>
             Error.Validation("BarberTask.Duration.Invalid", "Invalid duration selected.");
 
-        public static Error PartsRequired =>
-            Error.Validation("BarberTask.Parts.Required", "At least one part is required.");
+        public static Error CosmeticsRequired =>
+            Error.Validation("BarberTask.Cosmetics.Required", "At least one cosmetic is required.");
 
-        public static Error PartNameRequired =>
-            Error.Validation("BarberTask.Parts.Name.Required", "All parts must have a name.");
+        public static Error CosmeticNameRequired =>
+            Error.Validation("BarberTask.Cosmetics.Name.Required", "All cosmetics must have a name.");
 
         public static Error AtLeastOneBarberTaskIsRequired =>
               Error.Validation(
                   code: "BarberTask.Required",
-                  description: "At least one repair task must be specified.");
+                  description: "At least one Barber task must be specified.");
 
         public static Error InUse =>
-        Error.Conflict("BarberTask.InUse", "Cannot delete a repair task that is used in work orders.");
+        Error.Conflict("BarberTask.InUse", "Cannot delete a Barber task that is used in work orders.");
 
         public static Error DuplicateName =>
 
-        Error.Conflict("BarberTaskPart.Duplicate", "A part with the same name already exists in this repair task.");
+        Error.Conflict("BarberTaskCosmetic.Duplicate", "A cosmetic with the same name already exists in this Barber task.");
     }
 }

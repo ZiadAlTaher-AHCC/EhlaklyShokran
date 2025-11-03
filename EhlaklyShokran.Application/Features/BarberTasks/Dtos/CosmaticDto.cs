@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace EhlaklyShokran.Application.Features.BarberTasks.Dtos
 {
-    public class CosmaticDto
+    public class CosmeticDto
     {
 
-        public Guid PartId { get; set; }
+        public Guid CosmeticId { get; set; }
         public string Name { get; set; } = string.Empty;
         public decimal Cost { get; set; }
         public int Quantity { get; set; }

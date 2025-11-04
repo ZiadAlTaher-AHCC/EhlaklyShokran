@@ -62,15 +62,15 @@ namespace EhlaklyShokran.Application.Features.Billing.Commands.IssueInvoice
             {
                 var cosmeticsSummary = task.Cosmetics.Any()
                    ? string.Join(Environment.NewLine, task.Cosmetics.Select(p => $"    • {p.Name} x{p.Quantity} @ {p.Cost:C}"))
-                   : "    • No parts";
+                   : "    • No Cosmetics";
 
                 var lineDescription =
                     $"{taskIndex}: {task.Name}{Environment.NewLine}" +
                     $"  Labor = {task.LaborCost:C}{Environment.NewLine}" +
-                    $"  Parts:{Environment.NewLine}{cosmeticsSummary}";
+                    $"  Cosmetics:{Environment.NewLine}{cosmeticsSummary}";
 
-                var totalPartsCost = task.Cosmetics.Sum(p => p.Cost * p.Quantity);
-                var totalTaskCost = task.LaborCost + totalPartsCost;
+                var totalCosmeticsCost = task.Cosmetics.Sum(p => p.Cost * p.Quantity);
+                var totalTaskCost = task.LaborCost + totalCosmeticsCost;
 
                 var lineItemResult = InvoiceLineItem.Create(
                     invoiceId: invoiceId,

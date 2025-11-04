@@ -38,7 +38,7 @@ namespace EhlaklyShokran.Application.Features.Dashboard.Queries.GetWorkOrderStat
                     Completed = 0,
                     Cancelled = 0,
                     TotalRevenue = 0,
-                    TotalPartsCost = 0,
+                    TotalCosmeticsCost = 0,
                     TotalLaborCost = 0,
                     UniqueCustomers = 0
                 };
@@ -47,11 +47,11 @@ namespace EhlaklyShokran.Application.Features.Dashboard.Queries.GetWorkOrderStat
             var stats = await query.ToListAsync(cancellationToken);
 
             var totalRevenue = stats.Sum(x => x.Invoice?.Total ?? 0);
-            var totalPartCost = stats.Where(x => x.Invoice != null).Sum(x => x.TotalPartsCost ?? 0);
+            var totalCosmeticCost = stats.Where(x => x.Invoice != null).Sum(x => x.TotalCosmeticsCost ?? 0);
             var totalLaborCost = stats.Where(x => x.Invoice != null).Sum(x => x.TotalLaborCost ?? 0);
             var uniqueCustomers = stats.Select(x => x.CustomerId).Distinct().Count();
 
-            var netProfit = totalRevenue - totalPartCost - totalLaborCost;
+            var netProfit = totalRevenue - totalCosmeticCost - totalLaborCost;
 
             return new TodayWorkOrderStatsDto
             {
@@ -62,14 +62,14 @@ namespace EhlaklyShokran.Application.Features.Dashboard.Queries.GetWorkOrderStat
                 Completed = stats.Count(x => x.State == WorkOrderState.Completed),
                 Cancelled = stats.Count(x => x.State == WorkOrderState.Cancelled),
                 TotalRevenue = totalRevenue,
-                TotalPartsCost = totalPartCost,
+                TotalCosmeticsCost = totalCosmeticCost,
                 TotalLaborCost = totalLaborCost,
                 UniqueCustomers = uniqueCustomers,
                 NetProfit = netProfit,
                 ProfitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0,
                 CompletionRate = total > 0 ? ((decimal)stats.Count(x => x.State == WorkOrderState.Completed) / total) * 100 : 0,
                 AverageRevenuePerOrder = total > 0 ? totalRevenue / total : 0,
-                PartsCostRatio = totalRevenue > 0 ? (totalPartCost / totalRevenue) * 100 : 0,
+                CosmeticsCostRatio = totalRevenue > 0 ? (totalCosmeticCost / totalRevenue) * 100 : 0,
                 LaborCostRatio = totalRevenue > 0 ? (totalLaborCost / totalRevenue) * 100 : 0,
                 CancellationRate = total > 0 ? ((decimal)stats.Count(x => x.State == WorkOrderState.Cancelled) / total) * 100 : 0
             };

@@ -32,7 +32,7 @@ namespace EhlaklyShokran.Application.Features.WorkOrders.Mappers
                 BarberTasks = entity.BarberTasks.ToDtos(),
                 Customer = entity.Customer is null ? null : entity.Customer.ToDto(),
                 State = entity.State,
-                TotalPartCost = entity.BarberTasks.SelectMany(t => t.Cosmetics).Sum(p => p.Cost * p.Quantity),
+                TotalCosmeticCost = entity.BarberTasks.SelectMany(t => t.Cosmetics).Sum(p => p.Cost * p.Quantity),
                 TotalLaborCost = entity.BarberTasks.Sum(p => p.LaborCost),
                 TotalCost = entity.BarberTasks.Sum(rt => rt.TotalCost),
                 TotalDurationInMins = entity.BarberTasks.Sum(rt => (int)rt.EstimatedDurationInMins),

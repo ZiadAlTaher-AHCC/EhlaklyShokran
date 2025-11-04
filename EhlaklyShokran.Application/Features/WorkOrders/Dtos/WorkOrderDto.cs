@@ -21,7 +21,7 @@ namespace EhlaklyShokran.Application.Features.WorkOrders.Dtos
         public LaborDto? Labor { get; set; }
         public CustomerDto? Customer { get; set; }
         public WorkOrderState State { get; set; }
-        public decimal TotalPartCost { get; set; }
+        public decimal TotalCosmeticCost { get; set; }
         public decimal TotalLaborCost { get; set; }
         public decimal TotalCost { get; set; }
         public int TotalDurationInMins { get; set; }

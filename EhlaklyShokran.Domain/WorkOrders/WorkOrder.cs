@@ -28,9 +28,9 @@ namespace EhlaklyShokran.Domain.WorkOrders
         public Invoice? Invoice { get; set; }
         public decimal? Discount { get; private set; }
         public decimal? Tax { get; private set; }
-        public decimal? TotalPartsCost => _BarberTask.SelectMany(rt => rt.Cosmetics).Sum(p => p.Cost);
+        public decimal? TotalCosmeticsCost => _BarberTask.SelectMany(rt => rt.Cosmetics).Sum(p => p.Cost);
         public decimal? TotalLaborCost => _BarberTask.Sum(rt => rt.LaborCost);
-        public decimal? Total => (TotalPartsCost ?? 0) + (TotalLaborCost ?? 0);
+        public decimal? Total => (TotalCosmeticsCost ?? 0) + (TotalLaborCost ?? 0);
 
         private readonly List<BarberTask> _BarberTask = [];
         public IEnumerable<BarberTask> BarberTasks => _BarberTask.AsReadOnly();

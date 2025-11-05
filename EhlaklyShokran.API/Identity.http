@@ -1,0 +1,36 @@
+# @baseUrl = https://localhost:7007/identity
+@baseUrl = http://localhost:5175/identity
+
+### Login As Manager
+POST {{baseUrl}}/token/generate
+Content-Type: application/json
+
+{
+    "email": "pm@localhost",
+    "password": "pm@localhost"
+}
+
+### Login As Labor
+POST {{baseUrl}}/token/generate
+Content-Type: application/json
+
+{
+    "email": "john.labor@localhost",
+    "password": "john.labor@localhost"
+}
+
+### Refresh Token
+POST {{baseUrl}}/token/refresh-token
+Content-Type: application/json
+
+{
+    "ExpiredAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOWE1OTEyOS02YzIwLTQxN2EtODM0ZC0xMWEyMDhkMzJkOTYiLCJyb2xlIjoiTWFuYWdlciIsIm5iZiI6MTc0MDQzNDgwNSwiZXhwIjoxNzQwNDM4NDA1LCJpYXQiOjE3NDA0MzQ4MDUsImlzcyI6ImxvY2FsaG9zdCIsImF1ZCI6ImxvY2FsaG9zdCJ9.EOUXvigbhiC2a2RMpEHt-bfbDduC8034xnELEQRdRM0",
+    "refreshToken": "Byg+Wlkvk4iJ0MdNTI4KJ62Ec9SMcijkQXplN8Vs9L0="
+}
+
+
+### {
+###   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOWE1OTEyOS02YzIwLTQxN2EtODM0ZC0xMWEyMDhkMzJkOTYiLCJlbWFpbCI6InBtQGxvY2FsaG9zdCIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNzYyMzUwMjQyLCJleHAiOjE3NjIzNTM4NDIsImlhdCI6MTc2MjM1MDI0MiwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.kYFE7Fbjf-C10cVI1VzO1EqAbHI8AQaA83pABjKzEvA",
+###   "refreshToken": "xmPwOG6LDZzcacNacS6V+Ux/SnPu3pnwj9qibHbz28c=",
+###   "expiresOnUtc": "2025-11-05T14:44:02.941063Z"
+### }

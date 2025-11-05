@@ -8,9 +8,9 @@ namespace EhlaklyShokran.Application.Features.WorkOrders.Commands.CreateWorkOrde
 
 public sealed record CreateWorkOrderCommand(
     Spot Spot,
+    Guid CustomerId,
     DateTimeOffset StartAt,
     List<Guid> BarberTaskIds,
-    Guid? LaborId,
-    Guid CustomerId
+    Guid? LaborId
     )
 : IRequest<Result<WorkOrderDto>>;

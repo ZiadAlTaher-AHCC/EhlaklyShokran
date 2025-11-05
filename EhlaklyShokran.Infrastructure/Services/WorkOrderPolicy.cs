@@ -29,7 +29,7 @@ namespace EhlaklyShokran.Infrastructure.Services
                 ct);
 
             return isOccupied
-                 ? Error.Conflict("MechanicShop_Spot_Full", "The selected time slot is unavailable for the requested services.")
+                 ? Error.Conflict("EhlaklyShokran_Spot_Full", "The selected time slot is unavailable for the requested services.")
                  : Result.Success;
         }
 

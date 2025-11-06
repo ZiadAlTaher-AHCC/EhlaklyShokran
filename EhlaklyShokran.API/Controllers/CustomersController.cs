@@ -58,58 +58,58 @@ public sealed class CustomersController(ISender sender) : ApiController
             Problem);
     }
 
-    [HttpPost]
-    [Authorize(Policy = "ManagerOnly")]
-    [ProducesResponseType(typeof(CustomerDto), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [EndpointSummary("Creates a new customer.")]
-    [EndpointDescription("Adds a new customer to the system.")]
-    [EndpointName("CreateCustomer")]
-    [MapToApiVersion("1.0")]
-    public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerRequest request, CancellationToken ct)
-    {
-        
-        var result = await sender.Send(
-            new CreateCustomerCommand(
-            request.Name,
-            request.PhoneNumber,
-            request.Email),
-            ct);
+    //[HttpPost]
+    //[Authorize(Policy = "ManagerOnly")]
+    //[ProducesResponseType(typeof(CustomerDto), StatusCodes.Status201Created)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    //[EndpointSummary("Creates a new customer.")]
+    //[EndpointDescription("Adds a new customer to the system.")]
+    //[EndpointName("CreateCustomer")]
+    //[MapToApiVersion("1.0")]
+    //public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerRequest request, CancellationToken ct)
+    //{
 
-        return result.Match(
-            response => CreatedAtRoute(
-                routeName: "GetCustomerById",
-                routeValues: new { version = "1.0", customerId = response.CustomerId },
-                value: response),
-            Problem);
-    }
+    //    var result = await sender.Send(
+    //        new CreateCustomerCommand(
+    //        request.Name,
+    //        request.PhoneNumber,
+    //        request.Email),
+    //        ct);
 
-    [HttpPut("{customerId:guid}")]
-    [Authorize(Roles = nameof(Role.Manager))]
-    [ProducesResponseType(typeof(CustomerDto), StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [EndpointSummary("Updates an existing customer.")]
-    [EndpointDescription("Updates a customer and its associated vehicle.")]
-    [EndpointName("UpdateCustomer")]
-    [MapToApiVersion("1.0")]
-    public async Task<IActionResult> Update(Guid customerId, [FromBody] UpdateCustomerRequest request, CancellationToken ct)
-    {
-        var command = new UpdateCustomerCommand(
-            customerId,
-            request.Name,
-            request.PhoneNumber,
-            request.Email
-            );
+    //    return result.Match(
+    //        response => CreatedAtRoute(
+    //            routeName: "GetCustomerById",
+    //            routeValues: new { version = "1.0", customerId = response.CustomerId },
+    //            value: response),
+    //        Problem);
+    //}
 
-        var result = await sender.Send(command, ct);
+    //[HttpPut("{customerId:guid}")]
+    //[Authorize(Roles = nameof(Role.Manager))]
+    //[ProducesResponseType(typeof(CustomerDto), StatusCodes.Status204NoContent)]
+    //[ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    //[EndpointSummary("Updates an existing customer.")]
+    //[EndpointDescription("Updates a customer and its associated vehicle.")]
+    //[EndpointName("UpdateCustomer")]
+    //[MapToApiVersion("1.0")]
+    //public async Task<IActionResult> Update(Guid customerId, [FromBody] UpdateCustomerRequest request, CancellationToken ct)
+    //{
+    //    var command = new UpdateCustomerCommand(
+    //        customerId,
+    //        request.Name,
+    //        request.PhoneNumber,
+    //        request.Email
+    //        );
 
-        return result.Match(
-            response => Ok(response),
-            Problem);
-    }
+    //    var result = await sender.Send(command, ct);
+
+    //    return result.Match(
+    //        response => Ok(response),
+    //        Problem);
+    //}
 
     [HttpDelete("{customerId:guid}")]
     [Authorize(Roles = nameof(Role.Manager))]

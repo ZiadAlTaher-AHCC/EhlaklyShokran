@@ -33,7 +33,7 @@ Accept: application/json
 @tireRotationServiceId = A376B5D1-6B2D-4DD8-883E-D3D1721C1316
 @brakeReplacementServiceId = 4FA0BE55-06F6-4616-B086-E1F0C9354CD8
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOWE1OTEyOS02YzIwLTQxN2EtODM0ZC0xMWEyMDhkMzJkOTYiLCJlbWFpbCI6InBtQGxvY2FsaG9zdCIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNzYyMzUwMjQyLCJleHAiOjE3NjIzNTM4NDIsImlhdCI6MTc2MjM1MDI0MiwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.kYFE7Fbjf-C10cVI1VzO1EqAbHI8AQaA83pABjKzEvA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOWE1OTEyOS02YzIwLTQxN2EtODM0ZC0xMWEyMDhkMzJkOTYiLCJlbWFpbCI6InBtQGxvY2FsaG9zdCIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNzYyNDE4MDA5LCJleHAiOjE3NjI0MjE2MDksImlhdCI6MTc2MjQxODAwOSwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.dSaBZYbVT04XPVTVaRZ9DDFOO9ZuBkq1vWZbgq8yZd0
 
 @workorderId = c3fffd7e-02ee-4e1e-9f8c-71defbd862b0
 
@@ -44,7 +44,7 @@ GET http://localhost:5175/openapi/v1.json
 
 ### Get all customers
 GET {{baseUrl}}/v1/customers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOWE1OTEyOS02YzIwLTQxN2EtODM0ZC0xMWEyMDhkMzJkOTYiLCJlbWFpbCI6InBtQGxvY2FsaG9zdCIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNzYyMzUwMjQyLCJleHAiOjE3NjIzNTM4NDIsImlhdCI6MTc2MjM1MDI0MiwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.kYFE7Fbjf-C10cVI1VzO1EqAbHI8AQaA83pABjKzEvA
+Authorization: Bearer {{token}}
 
 ### Get a customer
 GET {{baseUrl}}/v1/customers/{{customerJohnId}}

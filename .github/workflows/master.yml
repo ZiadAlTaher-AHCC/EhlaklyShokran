@@ -1,0 +1,34 @@
+name: Deploy .NET API to SmarterASP
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build & Publish
+        run: dotnet publish -c Release -o publish
+
+      - name: Deploy using WebDeploy
+        run: |
+          "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
+          -verb:sync ^
+          -source:content-path="publish" ^
+          -dest:content-path="${{ secrets.MSDEPLOY_SITE }}",computerName="${{ secrets.PUBLISH_URL }}",userName="${{ secrets.DEPLOY_USERNAME }}",password="${{ secrets.DEPLOY_PASSWORD }}",authType="Basic" ^
+          -allowUntrusted ^
+          -enableRule:DoNotDeleteRule

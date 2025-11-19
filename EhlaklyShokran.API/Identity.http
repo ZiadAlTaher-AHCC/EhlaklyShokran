@@ -28,9 +28,3 @@ Content-Type: application/json
     "refreshToken": "Byg+Wlkvk4iJ0MdNTI4KJ62Ec9SMcijkQXplN8Vs9L0="
 }
 
-
-### {
-###   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOWE1OTEyOS02YzIwLTQxN2EtODM0ZC0xMWEyMDhkMzJkOTYiLCJlbWFpbCI6InBtQGxvY2FsaG9zdCIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNzYyMzUwMjQyLCJleHAiOjE3NjIzNTM4NDIsImlhdCI6MTc2MjM1MDI0MiwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.kYFE7Fbjf-C10cVI1VzO1EqAbHI8AQaA83pABjKzEvA",
-###   "refreshToken": "xmPwOG6LDZzcacNacS6V+Ux/SnPu3pnwj9qibHbz28c=",
-###   "expiresOnUtc": "2025-11-05T14:44:02.941063Z"
-### }

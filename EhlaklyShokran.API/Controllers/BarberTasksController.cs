@@ -58,63 +58,66 @@ public sealed class BarberTasksController(ISender sender) : ApiController
             Problem);
     }
 
-    //    [HttpPost]
-    //    [Authorize(Roles = nameof(Role.Manager))]
-    //    [ProducesResponseType(typeof(BarberTaskDto), StatusCodes.Status201Created)]
-    //    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    //    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    //    [EndpointSummary("Creates a new Barber task.")]
-    //    [EndpointDescription("Creates a Barber task and optionally includes Cosmatics.")]
-    //    [EndpointName("CreateBarberTask")]
-    //    [MapToApiVersion("1.0")]
-    //    public async Task<IActionResult> Create([FromBody] CreateBarberTaskRequest request, CancellationToken ct)
-    //    {
-    //        var Cosmatics = request.Cosmatics
-    //        .ConvertAll(p => new CreateBarberTaskCosmeticCommand(p.Name, p.Cost, p.Quantity))
-    //;
+    [HttpPost]
+    [Authorize(Roles = nameof(Role.Manager))]
+    //[ProducesResponseType(typeof(BarberTaskDto), StatusCodes.Status201Created)]
+    //[ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [EndpointSummary("Creates a new Barber task.")]
+    [EndpointDescription("Creates a Barber task and optionally includes Cosmatics.")]
+    [EndpointName("CreateBarberTask")]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> Create(/*[FromBody] CreateBarberTaskRequest request,*/ CancellationToken ct)
+    {
+//        var Cosmatics = request.Cosmatics
+//        .ConvertAll(p => new CreateBarberTaskCosmeticCommand(p.Name, p.Cost, p.Quantity))
+//;
 
-    //        var command = new CreateBarberTaskCommand(
-    //            request.Name,
-    //            request.LaborCost,
-    //            request.EstimatedDurationInMins is not null ? (ServiceDurationInMinutes)request.EstimatedDurationInMins : null,
-    //            Cosmatics);
+//        var command = new CreateBarberTaskCommand(
+//            request.Name,
+//            request.LaborCost,
+//            request.EstimatedDurationInMins is not null ? (ServiceDurationInMinutes)request.EstimatedDurationInMins : null,
+//            Cosmatics);
 
-    //        var result = await sender.Send(command, ct);
+//        var result = await sender.Send(command, ct);
 
-    //        return result.Match(
-    //            response => CreatedAtAction(nameof(GetById), new { BarberTaskId = response.BarberTaskId }, response),
-    //            Problem);
-    //    }
+//        return result.Match(
+//            response => CreatedAtAction(nameof(GetById), new { BarberTaskId = response.BarberTaskId }, response),
+//            Problem);
+        return Ok();
 
-    //    [HttpPut("{BarberTaskId:guid}")]
-    //    [Authorize(Roles = nameof(Role.Manager))]
-    //    [ProducesResponseType(typeof(BarberTaskDto), StatusCodes.Status204NoContent)]
-    //    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    //    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    //    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    //    [EndpointSummary("Updates an existing Barber task.")]
-    //    [EndpointDescription("Updates a Barber task and its associated Cosmatics.")]
-    //    [EndpointName("UpdateBarberTask")]
-    //    [MapToApiVersion("1.0")]
-    //    public async Task<IActionResult> Update(Guid BarberTaskId, [FromBody] UpdateBarberTaskRequest request, CancellationToken ct)
-    //    {
-    //        var cosmatics = request.Cosmatics
-    //            .ConvertAll(p => new UpdateBarberTaskCosmeticCommand(p.CosmaticId, p.Name, p.Cost, p.Quantity))
-    //;
+    }
 
-    //        var command = new UpdateBarberTaskCommand(
-    //            BarberTaskId,
-    //            request.Name,
-    //            request.LaborCost,
-    //            (ServiceDurationInMinutes)request.EstimatedDurationInMins,
-    //            cosmatics);
+    [HttpPut("{BarberTaskId:guid}")]
+    [Authorize(Roles = nameof(Role.Manager))]
+    //[ProducesResponseType(typeof(BarberTaskDto), StatusCodes.Status204NoContent)]
+    //[ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [EndpointSummary("Updates an existing Barber task.")]
+    [EndpointDescription("Updates a Barber task and its associated Cosmatics.")]
+    [EndpointName("UpdateBarberTask")]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> Update(Guid BarberTaskId, [FromBody] UpdateBarberTaskRequest request, CancellationToken ct)
+    {
+        //        var cosmatics = request.Cosmatics
+        //            .ConvertAll(p => new UpdateBarberTaskCosmeticCommand(p.CosmaticId, p.Name, p.Cost, p.Quantity))
+        //;
 
-    //        var result = await sender.Send(command, ct);
+        //        var command = new UpdateBarberTaskCommand(
+        //            BarberTaskId,
+        //            request.Name,
+        //            request.LaborCost,
+        //            (ServiceDurationInMinutes)request.EstimatedDurationInMins,
+        //            cosmatics);
 
-    //        return result.Match(
-    //            response => Ok(response),
-    //            Problem);
-    //    }
+        //        var result = await sender.Send(command, ct);
+
+        //        return result.Match(
+        //            response => Ok(response),
+        //            Problem);
+        return Ok();
+    }
 
     [HttpDelete("{BarberTaskId:guid}")]
     [Authorize(Roles = nameof(Role.Manager))]

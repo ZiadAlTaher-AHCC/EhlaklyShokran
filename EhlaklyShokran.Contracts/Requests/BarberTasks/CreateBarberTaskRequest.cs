@@ -15,7 +15,7 @@ public class CreateBarberTaskRequest
     public decimal LaborCost { get; set; }
 
     [Required(ErrorMessage = "Estimated duration is required.")]
-    public ServiceDurationInMinutes? EstimatedDurationInMins { get; set; }
+    public int? EstimatedDurationInMins { get; set; }
 
     [MinLength(1, ErrorMessage = "At least one cosmatic is required.")]
     //[ValidateComplexType]

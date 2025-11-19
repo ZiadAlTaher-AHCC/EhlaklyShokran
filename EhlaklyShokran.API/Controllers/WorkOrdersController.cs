@@ -28,92 +28,92 @@ namespace EhlaklyShokran.Api.Controllers;
 [Authorize]
 public sealed class WorkOrdersController(ISender sender) : ApiController
 {
-    //[HttpGet]
+    [HttpGet]
     //[ProducesResponseType(typeof(PaginatedList<WorkOrderListItemDto>), StatusCodes.Status200OK)]
     //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    //[EndpointSummary("Retrieves a paginated list of work orders.")]
-    //[EndpointDescription("Supports filtering by date range, status, Customer, labor, spot, and searching by term. Pagination and sorting are supported.")]
-    //[EndpointName("GetWorkOrders")]
-    //[MapToApiVersion("1.0")]
-    //public async Task<IActionResult> Get([FromQuery] WorkOrderFilterRequest filters, [FromQuery] PageRequest pageRequest, CancellationToken ct)
-    //{
-    //    if (pageRequest.Page <= 0)
-    //    {
-    //        return BadRequest("Page must be greater than 0");
-    //    }
+    [EndpointSummary("Retrieves a paginated list of work orders.")]
+    [EndpointDescription("Supports filtering by date range, status, Customer, labor, spot, and searching by term. Pagination and sorting are supported.")]
+    [EndpointName("GetWorkOrders")]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> Get([FromQuery] WorkOrderFilterRequest filters, [FromQuery] PageRequest pageRequest, CancellationToken ct)
+    {
+        if (pageRequest.Page <= 0)
+        {
+            return BadRequest("Page must be greater than 0");
+        }
 
-    //    if (pageRequest.PageSize <= 0 || pageRequest.PageSize > 100)
-    //    {
-    //        return BadRequest("PageSize must be between 1 and 100");
-    //    }
+        if (pageRequest.PageSize <= 0 || pageRequest.PageSize > 100)
+        {
+            return BadRequest("PageSize must be between 1 and 100");
+        }
 
-    //    var query = new GetWorkOrdersQuery(
-    //        pageRequest.Page,
-    //        pageRequest.PageSize,
-    //        filters.SearchTerm,
-    //        filters.SortColumn,
-    //        filters.SortDirection,
-    //        filters.State is not null ? (WorkOrderState)(int)filters.State : null,
-    //        filters.CustomerId,
-    //        filters.LaborId,
-    //        filters.StartDateFrom,
-    //        filters.StartDateTo,
-    //        filters.EndDateFrom,
-    //        filters.EndDateTo,
-    //        filters.Spot is not null ? (Spot)(int)filters.Spot : null);
+        var query = new GetWorkOrdersQuery(
+            pageRequest.Page,
+            pageRequest.PageSize,
+            filters.SearchTerm,
+            filters.SortColumn,
+            filters.SortDirection,
+            filters.State is not null ? (WorkOrderState)(int)filters.State : null,
+            filters.CustomerId,
+            filters.LaborId,
+            filters.StartDateFrom,
+            filters.StartDateTo,
+            filters.EndDateFrom,
+            filters.EndDateTo,
+            filters.Spot is not null ? (Spot)(int)filters.Spot : null);
 
-    //    var result = await sender.Send(query, ct);
+        var result = await sender.Send(query, ct);
 
-    //    return result.Match(
-    //        response => Ok(response),
-    //        Problem);
-    //}
+        return result.Match(
+            response => Ok(response),
+            Problem);
+    }
 
-    //[HttpGet("{workOrderId:guid}", Name = "GetWorkOrderById")]
+    [HttpGet("{workOrderId:guid}", Name = "GetWorkOrderById")]
     //[ProducesResponseType(typeof(WorkOrderDto), StatusCodes.Status200OK)]
     //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    //[EndpointSummary("Retrieves a work order by its ID.")]
-    //[EndpointDescription("Returns detailed information about the specified work order if it exists.")]
-    //[EndpointName("GetWorkOrderById")]
-    //[MapToApiVersion("1.0")]
-    //public async Task<IActionResult> GetById(Guid workOrderId, CancellationToken ct)
-    //{
-    //    var result = await sender.Send(new GetWorkOrderByIdQuery(workOrderId), ct);
+    [EndpointSummary("Retrieves a work order by its ID.")]
+    [EndpointDescription("Returns detailed information about the specified work order if it exists.")]
+    [EndpointName("GetWorkOrderById")]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> GetById(Guid workOrderId, CancellationToken ct)
+    {
+        var result = await sender.Send(new GetWorkOrderByIdQuery(workOrderId), ct);
 
-    //    return result.Match(
-    //      response => Ok(response),
-    //      Problem);
-    //}
+        return result.Match(
+          response => Ok(response),
+          Problem);
+    }
 
-    //[HttpPost]
-    //[Authorize(Policy = "ManagerOnly")]
+    [HttpPost]
+    [Authorize(Policy = "ManagerOnly")]
     //[ProducesResponseType(typeof(WorkOrderDto), StatusCodes.Status201Created)]
     //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    //[EndpointSummary("Creates a new work order.")]
-    //[EndpointDescription("Creates a new work order for a Customer, specifying labor, tasks, and other required information.")]
-    //[EndpointName("CreateWorkOrder")]
-    //[MapToApiVersion("1.0")]
-    //public async Task<IActionResult> Create([FromBody] CreateWorkOrderRequest request, CancellationToken ct)
-    //{
-    //    var result = await sender.Send(
-    //        new CreateWorkOrderCommand(
-    //        (Spot)(int)request.Spot,
-    //        request.CustomerId,
-    //        request.StartAtUtc,
-    //        request.BarberTaskIds,
-    //        request.LaborId),
-    //        ct);
+    [EndpointSummary("Creates a new work order.")]
+    [EndpointDescription("Creates a new work order for a Customer, specifying labor, tasks, and other required information.")]
+    [EndpointName("CreateWorkOrder")]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> Create([FromBody] CreateWorkOrderRequest request, CancellationToken ct)
+    {
+        var result = await sender.Send(
+            new CreateWorkOrderCommand(
+            (Spot)(int)request.Spot,
+            request.CustomerId,
+            request.StartAtUtc,
+            request.BarberTaskIds,
+            request.LaborId),
+            ct);
 
-    //    return result.Match(
-    //        response => CreatedAtRoute(
-    //            routeName: "GetWorkOrderById",
-    //            routeValues: new { version = "1.0", workOrderId = response.WorkOrderId },
-    //            value: response),
-    //        Problem);
-    //}
+        return result.Match(
+            response => CreatedAtRoute(
+                routeName: "GetWorkOrderById",
+                routeValues: new { version = "1.0", workOrderId = response.WorkOrderId },
+                value: response),
+            Problem);
+    }
 
     [HttpPut("{workOrderId:guid}/relocation")]
     [Authorize(Policy = "ManagerOnly")]
@@ -217,49 +217,49 @@ public sealed class WorkOrdersController(ISender sender) : ApiController
              Problem);
     }
 
-    //  [HttpGet("schedule/{date}")]
-    //  [Authorize]
-    //  [ProducesResponseType(typeof(ScheduleDto), StatusCodes.Status200OK)]
-    //  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    //  [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    //  [EndpointSummary("Retrieves the schedule for a given day.")]
-    //  [EndpointDescription("Returns a schedule view for the specified date. If no date is provided, today's schedule is returned. You can optionally filter by labor ID.")]
-    //  [EndpointName("GetDailySchedule")]
-    //  [MapToApiVersion("1.0")]
-    //  public async Task<IActionResult> GetSchedule(
-    //DateOnly? date,
-    //[FromQuery] Guid? laborId,
-    //[FromHeader(Name = "X-TimeZone")] string? tz,
-    //CancellationToken ct)
-    //  {
-    //      if (string.IsNullOrWhiteSpace(tz))
-    //      {
-    //          return Problem(
-    //              detail: "Missing time zone in 'X-TimeZone' header.",
-    //              statusCode: StatusCodes.Status400BadRequest,
-    //              title: "Time Zone Required");
-    //      }
+    [HttpGet("schedule/{date}")]
+    [Authorize]
+    //[ProducesResponseType(typeof(ScheduleDto), StatusCodes.Status200OK)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [EndpointSummary("Retrieves the schedule for a given day.")]
+    [EndpointDescription("Returns a schedule view for the specified date. If no date is provided, today's schedule is returned. You can optionally filter by labor ID.")]
+    [EndpointName("GetDailySchedule")]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> GetSchedule(
+  DateOnly? date,
+  [FromQuery] Guid? laborId,
+  [FromHeader(Name = "X-TimeZone")] string? tz,
+  CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(tz))
+        {
+            return Problem(
+                detail: "Missing time zone in 'X-TimeZone' header.",
+                statusCode: StatusCodes.Status400BadRequest,
+                title: "Time Zone Required");
+        }
 
-    //      TimeZoneInfo timeZone;
+        TimeZoneInfo timeZone;
 
-    //      try
-    //      {
-    //          timeZone = TimeZoneInfo.FindSystemTimeZoneById(tz);
-    //      }
-    //      catch
-    //      {
-    //          return Problem(
-    //              detail: $"Invalid or unknown time zone: '{tz}'.",
-    //              statusCode: StatusCodes.Status400BadRequest,
-    //              title: "Invalid Time Zone");
-    //      }
+        try
+        {
+            timeZone = TimeZoneInfo.FindSystemTimeZoneById(tz);
+        }
+        catch
+        {
+            return Problem(
+                detail: $"Invalid or unknown time zone: '{tz}'.",
+                statusCode: StatusCodes.Status400BadRequest,
+                title: "Invalid Time Zone");
+        }
 
-    //      var scheduleDate = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
+        var scheduleDate = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
 
-    //      var result = await sender.Send(new GetDailyScheduleQuery(timeZone, scheduleDate, laborId), ct);
+        var result = await sender.Send(new GetDailyScheduleQuery(timeZone, scheduleDate, laborId), ct);
 
-    //      return result.Match(
-    //          response => Ok(response),
-    //          Problem);
-    //  }
+        return result.Match(
+            response => Ok(response),
+            Problem);
+    }
 }

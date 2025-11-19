@@ -67,24 +67,23 @@ public sealed class BarberTasksController(ISender sender) : ApiController
     [EndpointDescription("Creates a Barber task and optionally includes Cosmatics.")]
     [EndpointName("CreateBarberTask")]
     [MapToApiVersion("1.0")]
-    public async Task<IActionResult> Create(/*[FromBody] CreateBarberTaskRequest request,*/ CancellationToken ct)
+    public async Task<IActionResult> Create([FromBody] CreateBarberTaskRequest request, CancellationToken ct)
     {
-//        var Cosmatics = request.Cosmatics
-//        .ConvertAll(p => new CreateBarberTaskCosmeticCommand(p.Name, p.Cost, p.Quantity))
-//;
+        var Cosmatics = request.Cosmatics
+        .ConvertAll(p => new CreateBarberTaskCosmeticCommand(p.Name, p.Cost, p.Quantity))
+;
 
-//        var command = new CreateBarberTaskCommand(
-//            request.Name,
-//            request.LaborCost,
-//            request.EstimatedDurationInMins is not null ? (ServiceDurationInMinutes)request.EstimatedDurationInMins : null,
-//            Cosmatics);
+        var command = new CreateBarberTaskCommand(
+            request.Name,
+            request.LaborCost,
+            request.EstimatedDurationInMins is not null ? (ServiceDurationInMinutes)request.EstimatedDurationInMins : null,
+            Cosmatics);
 
-//        var result = await sender.Send(command, ct);
+        var result = await sender.Send(command, ct);
 
-//        return result.Match(
-//            response => CreatedAtAction(nameof(GetById), new { BarberTaskId = response.BarberTaskId }, response),
-//            Problem);
-        return Ok();
+        return result.Match(
+            response => CreatedAtAction(nameof(GetById), new { BarberTaskId = response.BarberTaskId }, response),
+            Problem);
 
     }
 
@@ -100,23 +99,22 @@ public sealed class BarberTasksController(ISender sender) : ApiController
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> Update(Guid BarberTaskId, [FromBody] UpdateBarberTaskRequest request, CancellationToken ct)
     {
-        //        var cosmatics = request.Cosmatics
-        //            .ConvertAll(p => new UpdateBarberTaskCosmeticCommand(p.CosmaticId, p.Name, p.Cost, p.Quantity))
-        //;
+        var cosmatics = request.Cosmatics
+            .ConvertAll(p => new UpdateBarberTaskCosmeticCommand(p.CosmaticId, p.Name, p.Cost, p.Quantity))
+;
 
-        //        var command = new UpdateBarberTaskCommand(
-        //            BarberTaskId,
-        //            request.Name,
-        //            request.LaborCost,
-        //            (ServiceDurationInMinutes)request.EstimatedDurationInMins,
-        //            cosmatics);
+        var command = new UpdateBarberTaskCommand(
+            BarberTaskId,
+            request.Name,
+            request.LaborCost,
+            (ServiceDurationInMinutes)request.EstimatedDurationInMins,
+            cosmatics);
 
-        //        var result = await sender.Send(command, ct);
+        var result = await sender.Send(command, ct);
 
-        //        return result.Match(
-        //            response => Ok(response),
-        //            Problem);
-        return Ok();
+        return result.Match(
+            response => Ok(response),
+            Problem);
     }
 
     [HttpDelete("{BarberTaskId:guid}")]
@@ -137,3 +135,26 @@ public sealed class BarberTasksController(ISender sender) : ApiController
             Problem);
     }
 }
+
+
+//{
+//  "barberTaskId": "117541c8-558e-4f17-9b2f-ff5d5e514bfa",
+//  "name": "test name",
+//  "estimatedDurationInMins": 30,
+//  "laborCost": 100,
+//  "totalCost": 170,
+//  "cosmetics": [
+//    {
+//      "cosmeticId": "7dccfb27-6f3f-4993-b313-ca494ca97a3a",
+//      "name": "facial mask",
+//      "cost": 50,
+//      "quantity": 1
+//    },
+//    {
+//    "cosmeticId": "bfa7c11b-f4e2-43a7-88f7-976ff043cffc",
+//      "name": "cream path",
+//      "cost": 20,
+//      "quantity": 1
+//    }
+//  ]
+//}
